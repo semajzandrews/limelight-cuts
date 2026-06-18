@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Limelight Cuts · Barbershop on Main St, City of Orange NJ</title>
+<meta name="description" content="Limelight Cuts is a barbershop at 175 Main St in the City of Orange, New Jersey. Fresh fades, sharp lineups and beard work, 4.6 stars. Walk in or call (973) 905-0309." />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@500,700,800,900&f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --ink:#15161A;          /* charcoal base */
+    --ink-2:#1B1D22;        /* raised panel */
+    --ink-3:#23262D;        /* card */
+    --line:rgba(212,165,116,.16);
+    --line-2:rgba(255,255,255,.08);
+    --gold:#D4A574;         /* accent */
+    --gold-deep:#B98A53;
+    --cream:#F2EBDF;        /* near-white text */
+    --muted:#9D9A93;        /* muted text */
+    --green:#7FBF8B;        /* open pill */
+    --red:#D58A7A;          /* closed pill */
+    --display:'Cabinet Grotesk',system-ui,sans-serif;
+    --body:'Satoshi',system-ui,sans-serif;
+    --rail:248px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--ink);color:var(--cream);font-family:var(--body);
+    font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  ::selection{background:var(--gold);color:var(--ink)}
+  h1,h2,h3{font-family:var(--display);font-weight:800;line-height:1.02;letter-spacing:-.02em}
+  .wrap{max-width:980px;margin:0 auto;padding:0 28px}
+  .kicker{
+    font-family:var(--body);font-weight:700;font-size:12px;letter-spacing:.32em;
+    text-transform:uppercase;color:var(--gold);display:inline-flex;align-items:center;gap:10px;
+  }
+  .kicker::before{content:"";width:26px;height:1px;background:var(--gold);opacity:.7}
+
+  /* ---------- LEFT RAIL NAV ---------- */
+  .rail{
+    position:fixed;top:0;left:0;height:100vh;height:100svh;width:var(--rail);
+    background:var(--ink);border-right:1px solid var(--line);
+    display:flex;flex-direction:column;justify-content:space-between;
+    padding:30px 26px;z-index:60;
+  }
+  .brand{display:flex;align-items:center;gap:12px}
+  .brand .mark{
+    width:42px;height:42px;border:1px solid var(--gold);border-radius:50%;
+    display:grid;place-items:center;flex:none;position:relative;
+  }
+  .brand .mark span{font-family:var(--display);font-weight:900;font-size:18px;color:var(--gold);line-height:1}
+  .brand .mark::after{content:"";position:absolute;inset:5px;border:1px solid var(--line);border-radius:50%}
+  .brand b{font-family:var(--display);font-weight:800;font-size:17px;letter-spacing:-.01em;display:block;line-height:1.05}
+  .brand small{display:block;font-size:10.5px;letter-spacing:.26em;color:var(--muted);text-transform:uppercase;margin-top:3px}
+  .rail nav{display:flex;flex-direction:column;gap:2px;margin-top:38px}
+  .rail nav a{
+    font-size:14px;color:var(--muted);padding:11px 12px;border-radius:9px;
+    display:flex;align-items:center;gap:12px;transition:.25s;font-weight:500;
+  }
+  .rail nav a .n{font-family:var(--display);font-size:11px;color:var(--gold-deep);width:18px;opacity:.8}
+  .rail nav a:hover,.rail nav a.active{color:var(--cream);background:var(--ink-2)}
+  .rail nav a:hover .n,.rail nav a.active .n{color:var(--gold)}
+  .rail-foot{display:flex;flex-direction:column;gap:14px}
+  .rail .status{display:flex;align-items:center;gap:9px;font-size:12.5px;color:var(--muted)}
+  .dot{width:8px;height:8px;border-radius:50%;flex:none;position:relative}
+  .dot.open{background:var(--green)}
+  .dot.open::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:1px solid var(--green);opacity:.5;animation:pulse 2.4s infinite}
+  .dot.closed{background:var(--red)}
+  @keyframes pulse{0%{transform:scale(1);opacity:.5}70%{transform:scale(2.1);opacity:0}100%{opacity:0}}
+  .rail .call{
+    display:flex;align-items:center;justify-content:center;gap:9px;
+    background:var(--gold);color:var(--ink);font-weight:700;font-size:14px;
+    padding:13px;border-radius:11px;transition:.25s;font-family:var(--body);
+  }
+  .rail .call:hover{background:var(--cream)}
+  .rail .call svg{width:16px;height:16px}
+
+  /* ---------- MOBILE TOP BAR ---------- */
+  .topbar{display:none}
+
+  /* ---------- MAIN OFFSET ---------- */
+  main{margin-left:var(--rail)}
+  section{position:relative}
+
+  /* ---------- HERO ---------- */
+  .hero{min-height:100vh;min-height:100svh;display:flex;align-items:stretch}
+  .hero-inner{display:grid;grid-template-columns:1.05fr .95fr;width:100%}
+  .hero-copy{padding:64px 56px 56px;display:flex;flex-direction:column;justify-content:center}
+  .pill{
+    align-self:flex-start;display:inline-flex;align-items:center;gap:9px;
+    border:1px solid var(--line);background:var(--ink-2);border-radius:100px;
+    padding:8px 15px;font-size:12.5px;color:var(--cream);margin-bottom:30px;font-weight:500;
+  }
+  .hero h1{font-size:clamp(52px,7.2vw,96px);font-weight:900}
+  .hero h1 em{font-style:normal;color:var(--gold);position:relative;white-space:nowrap}
+  .hero h1 .underline{display:block;height:3px;width:0;background:var(--gold);margin-top:10px;border-radius:2px;animation:grow 1s .5s forwards cubic-bezier(.2,.8,.2,1)}
+  @keyframes grow{to{width:120px}}
+  .hero p.lead{color:var(--muted);font-size:17px;max-width:430px;margin:26px 0 34px;line-height:1.65}
+  .hero p.lead b{color:var(--cream);font-weight:500}
+  .cta-row{display:flex;gap:14px;flex-wrap:wrap}
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;font-weight:700;font-size:15px;
+    padding:15px 24px;border-radius:12px;transition:.25s;cursor:pointer;border:1px solid transparent;font-family:var(--body);
+  }
+  .btn-gold{background:var(--gold);color:var(--ink)}
+  .btn-gold:hover{background:var(--cream);transform:translateY(-2px)}
+  .btn-ghost{border-color:var(--line);color:var(--cream)}
+  .btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+  .btn svg{width:16px;height:16px}
+  .hero-rate{display:flex;align-items:center;gap:16px;margin-top:40px;color:var(--muted);font-size:13.5px}
+  .stars{display:flex;gap:3px;color:var(--gold)}
+  .stars svg{width:15px;height:15px}
+  .hero-photo{position:relative;overflow:hidden;border-left:1px solid var(--line)}
+  .hero-photo img{width:100%;height:100%;object-fit:cover;filter:saturate(.92) contrast(1.04)}
+  .hero-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(21,22,26,.55),transparent 45%)}
+  .hero-tag{
+    position:absolute;left:24px;bottom:24px;z-index:2;background:rgba(21,22,26,.78);
+    backdrop-filter:blur(6px);border:1px solid var(--line);border-radius:12px;padding:13px 17px;
+  }
+  .hero-tag b{font-family:var(--display);font-size:15px;display:block}
+  .hero-tag small{color:var(--muted);font-size:12px}
+
+  /* ---------- SECTION HEADER ---------- */
+  .sec{padding:96px 0}
+  .sec-head{max-width:560px;margin-bottom:52px}
+  .sec-head h2{font-size:clamp(34px,4.6vw,52px);margin:18px 0 0}
+  .sec-head p{color:var(--muted);margin-top:18px;font-size:16px}
+
+  /* ---------- SIGNATURE: BEFORE/AFTER ---------- */
+  #fade{background:var(--ink-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .compare{
+    position:relative;width:100%;aspect-ratio:16/10;border-radius:16px;overflow:hidden;
+    border:1px solid var(--line);user-select:none;touch-action:pan-y;background:var(--ink-3);
+  }
+  .compare img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
+  .compare .after-wrap{position:absolute;inset:0;overflow:hidden;width:50%}
+  .compare .after-wrap img{width:auto;min-width:100%}
+  .cmp-label{
+    position:absolute;top:16px;font-family:var(--display);font-weight:800;font-size:12px;letter-spacing:.18em;
+    text-transform:uppercase;padding:6px 12px;border-radius:8px;background:rgba(21,22,26,.78);
+    backdrop-filter:blur(4px);z-index:3;color:var(--cream);
+  }
+  .cmp-label.b{left:16px}
+  .cmp-label.a{right:16px;color:var(--gold)}
+  .handle{position:absolute;top:0;bottom:0;width:2px;background:var(--gold);left:50%;z-index:4;transform:translateX(-1px)}
+  .handle .grip{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;border-radius:50%;
+    background:var(--gold);display:grid;place-items:center;box-shadow:0 6px 24px rgba(0,0,0,.4);cursor:ew-resize;
+  }
+  .handle .grip svg{width:22px;height:22px;color:var(--ink)}
+  .compare-cap{display:flex;justify-content:space-between;align-items:center;margin-top:18px;flex-wrap:wrap;gap:12px}
+  .compare-cap span{color:var(--muted);font-size:13.5px;display:inline-flex;align-items:center;gap:8px}
+  .compare-cap span svg{width:15px;height:15px;color:var(--gold)}
+
+  /* ---------- CHAIRS / AVAILABILITY ---------- */
+  .chairs-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:center}
+  .chips{display:flex;flex-wrap:wrap;gap:11px;margin-top:8px}
+  .chip{
+    border:1px solid var(--line);background:var(--ink-3);border-radius:11px;padding:13px 16px;
+    font-size:14px;display:flex;flex-direction:column;gap:3px;min-width:104px;transition:.25s;cursor:pointer;
+  }
+  .chip:hover{border-color:var(--gold);transform:translateY(-3px)}
+  .chip b{font-family:var(--display);font-size:16px;letter-spacing:-.01em}
+  .chip small{font-size:11.5px;color:var(--green);display:flex;align-items:center;gap:6px}
+  .chip small.full{color:var(--muted)}
+  .chip .s-dot{width:6px;height:6px;border-radius:50%;background:var(--green)}
+  .chip small.full .s-dot{background:var(--muted)}
+  .chairs-note{
+    border:1px dashed var(--line);border-radius:14px;padding:22px;background:var(--ink-2);margin-top:26px;
+  }
+  .chairs-note b{font-family:var(--display);font-size:16px;color:var(--gold)}
+  .chairs-note p{color:var(--muted);font-size:14px;margin-top:6px}
+  .barbers{display:flex;flex-direction:column;gap:14px}
+  .barber{display:flex;align-items:center;gap:16px;border:1px solid var(--line);border-radius:14px;padding:16px;background:var(--ink-3)}
+  .barber .av{width:48px;height:48px;border-radius:50%;flex:none;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:17px;color:var(--ink);background:var(--gold)}
+  .barber .av.alt{background:var(--cream)}
+  .barber b{font-family:var(--display);font-size:16px;display:block}
+  .barber small{color:var(--muted);font-size:13px}
+  .barber .free{margin-left:auto;font-size:12px;color:var(--green);display:flex;align-items:center;gap:6px;font-weight:500}
+  .barber .free .s-dot{width:7px;height:7px;border-radius:50%;background:var(--green)}
+
+  /* ---------- SERVICES ---------- */
+  .menu{display:grid;grid-template-columns:1fr 1fr;gap:0 56px}
+  .svc{display:flex;align-items:baseline;gap:14px;padding:20px 0;border-bottom:1px solid var(--line-2)}
+  .svc .ic{width:34px;flex:none;color:var(--gold)}
+  .svc .ic svg{width:26px;height:26px}
+  .svc .meta{flex:1}
+  .svc .meta b{font-family:var(--display);font-size:18px;font-weight:700}
+  .svc .meta p{color:var(--muted);font-size:13.5px;margin-top:3px}
+  .svc .price{font-family:var(--display);font-size:18px;color:var(--gold);font-weight:700;white-space:nowrap}
+  .menu-note{text-align:center;color:var(--muted);font-size:13px;margin-top:34px}
+
+  /* ---------- GALLERY ---------- */
+  .gal{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:200px;gap:14px}
+  .gal figure{position:relative;overflow:hidden;border-radius:14px;border:1px solid var(--line)}
+  .gal figure img{width:100%;height:100%;object-fit:cover;transition:.6s ease;filter:saturate(.94)}
+  .gal figure:hover img{transform:scale(1.06)}
+  .gal .tall{grid-row:span 2}
+  .gal .wide{grid-column:span 2}
+  .gal figcaption{
+    position:absolute;left:0;bottom:0;right:0;padding:14px;font-size:12.5px;color:var(--cream);
+    background:linear-gradient(0deg,rgba(21,22,26,.82),transparent);opacity:0;transition:.3s;font-weight:500;
+  }
+  .gal figure:hover figcaption{opacity:1}
+
+  /* ---------- REVIEW ---------- */
+  #word{text-align:center}
+  #word .quote{font-family:var(--display);font-weight:700;font-size:clamp(28px,4vw,46px);line-height:1.18;max-width:780px;margin:30px auto 0;letter-spacing:-.01em}
+  #word .quote em{font-style:normal;color:var(--gold)}
+  #word .attr{color:var(--muted);margin-top:26px;font-size:14px;letter-spacing:.04em}
+
+  /* ---------- VISIT / MAP ---------- */
+  .visit-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:0;border:1px solid var(--line);border-radius:18px;overflow:hidden}
+  .visit-info{padding:46px 42px;background:var(--ink-2)}
+  .visit-info h2{font-size:clamp(30px,3.6vw,42px)}
+  .v-row{display:flex;gap:14px;padding:20px 0;border-bottom:1px solid var(--line-2)}
+  .v-row:last-of-type{border-bottom:0}
+  .v-row .ic{color:var(--gold);width:22px;flex:none}
+  .v-row .ic svg{width:20px;height:20px}
+  .v-row b{font-family:var(--display);font-size:15px;display:block;margin-bottom:3px}
+  .v-row p{color:var(--muted);font-size:14px}
+  .v-row a{color:var(--cream)}
+  .v-row a:hover{color:var(--gold)}
+  .map-frame{min-height:420px;position:relative;background:var(--ink-3)}
+  .map-frame iframe{width:100%;height:100%;border:0;filter:grayscale(.4) contrast(1.05) brightness(.92)}
+  .visit-cta{margin-top:30px;display:flex;gap:13px;flex-wrap:wrap}
+  .ig-line{display:inline-flex;align-items:center;gap:9px;margin-top:24px;color:var(--muted);font-size:13.5px}
+  .ig-line a{color:var(--gold);font-weight:500}
+  .ig-line svg{width:16px;height:16px}
+
+  /* ---------- FOOTER ---------- */
+  footer{border-top:1px solid var(--line);padding:54px 0 40px;margin-top:20px}
+  .foot-top{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;align-items:flex-start}
+  .foot-brand b{font-family:var(--display);font-weight:900;font-size:24px;letter-spacing:-.01em}
+  .foot-brand p{color:var(--muted);font-size:13.5px;margin-top:8px;max-width:300px;line-height:1.6}
+  .foot-cols{display:flex;gap:56px;flex-wrap:wrap}
+  .foot-col b{font-family:var(--display);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:14px}
+  .foot-col a,.foot-col p{display:block;color:var(--muted);font-size:13.5px;margin-bottom:9px;line-height:1.5}
+  .foot-col a:hover{color:var(--cream)}
+  .foot-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;margin-top:46px;padding-top:24px;border-top:1px solid var(--line-2);color:var(--muted);font-size:12.5px}
+  .foot-bottom .by{display:inline-flex;align-items:center;gap:7px}
+  .foot-bottom .by a{color:var(--gold);font-weight:500}
+  .foot-bottom .by .spark{width:13px;height:13px;color:var(--gold)}
+
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .8s,transform .8s}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media(max-width:1080px){
+    :root{--rail:0px}
+    .rail{display:none}
+    main{margin-left:0}
+    .topbar{
+      display:flex;position:sticky;top:0;z-index:60;align-items:center;justify-content:space-between;
+      padding:14px 20px;background:rgba(21,22,26,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);
+    }
+    .topbar .brand b{font-size:16px}
+    .topbar .brand small{display:none}
+    .topbar .t-right{display:flex;align-items:center;gap:12px}
+    .t-status{display:flex;align-items:center;gap:7px;font-size:11.5px;color:var(--muted)}
+    .t-call{
+      width:46px;height:46px;border-radius:12px;background:var(--gold);display:grid;place-items:center;flex:none;
+    }
+    .t-call svg{width:19px;height:19px;color:var(--ink)}
+    .hero-inner{grid-template-columns:1fr}
+    .hero-copy{padding:54px 24px 44px;order:2}
+    .hero-photo{order:1;min-height:300px;border-left:0;border-bottom:1px solid var(--line)}
+    .hero{min-height:auto}
+    .chairs-grid{grid-template-columns:1fr;gap:34px}
+    .menu{grid-template-columns:1fr;gap:0}
+    .gal{grid-template-columns:repeat(2,1fr);grid-auto-rows:150px}
+    .visit-grid{grid-template-columns:1fr}
+    .map-frame{min-height:320px;order:2}
+  }
+  @media(max-width:560px){
+    .wrap{padding:0 18px}
+    .sec{padding:70px 0}
+    .hero h1{font-size:clamp(42px,13vw,60px)}
+    .hero-copy{padding:42px 18px 38px}
+    .cta-row .btn{flex:1;justify-content:center}
+    .gal{grid-template-columns:1fr 1fr;grid-auto-rows:130px}
+    .gal .wide{grid-column:span 2}
+    .visit-info{padding:34px 22px}
+    .handle .grip{width:42px;height:42px}
+    .foot-cols{gap:32px}
+  }
+</style>
+</head>
+<body>
+
+<!-- MOBILE TOP BAR -->
+<header class="topbar">
+  <a href="#top" class="brand">
+    <span class="mark"><span>L</span></span>
+    <span><b>Limelight Cuts</b><small>Orange, NJ</small></span>
+  </a>
+  <div class="t-right">
+    <div class="t-status"><span class="dot" id="dotM"></span><span id="statM">Hours</span></div>
+    <a class="t-call" href="tel:+19739050309" aria-label="Call Limelight Cuts at (973) 905-0309">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    </a>
+  </div>
+</header>
+
+<!-- LEFT RAIL -->
+<aside class="rail">
+  <div>
+    <a href="#top" class="brand">
+      <span class="mark"><span>L</span></span>
+      <span><b>Limelight<br>Cuts</b><small>Est. on Main St</small></span>
+    </a>
+    <nav id="railNav">
+      <a href="#top" class="active"><span class="n">01</span>Home</a>
+      <a href="#fade"><span class="n">02</span>The Fade</a>
+      <a href="#chairs"><span class="n">03</span>Chairs</a>
+      <a href="#services"><span class="n">04</span>Services</a>
+      <a href="#gallery"><span class="n">05</span>Work</a>
+      <a href="#visit"><span class="n">06</span>Visit</a>
+    </nav>
+  </div>
+  <div class="rail-foot">
+    <div class="status"><span class="dot" id="dotR"></span><span id="statR">Checking hours</span></div>
+    <a class="call" href="tel:+19739050309">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      (973) 905-0309
+    </a>
+  </div>
+</aside>
+
+<main>
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <span class="pill"><span class="dot" id="dotH"></span><span id="statH">Checking the chair</span></span>
+        <h1>Walk in plain.<br>Walk out <em>lit.</em><span class="underline"></span></h1>
+        <p class="lead">A neighborhood barbershop on <b>175 Main Street</b> in the City of Orange. Skin fades, crisp lineups and beard work, done by hand and finished sharp. No app, no fuss. Just a good chair and a clipper that knows what it is doing.</p>
+        <div class="cta-row">
+          <a class="btn btn-gold" href="tel:+19739050309">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            Call the shop
+          </a>
+          <a class="btn btn-ghost" href="#visit">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Find the chair
+          </a>
+        </div>
+        <div class="hero-rate">
+          <span class="stars" aria-label="Rated 4.6 out of 5">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+          </span>
+          <span><b style="color:var(--cream)">4.6</b> on Google, earned cut by cut</span>
+        </div>
+      </div>
+      <div class="hero-photo">
+        <img src="https://images.pexels.com/photos/4969842/pexels-photo-4969842.jpeg?auto=compress&cs=tinysrgb&w=1300" alt="A classic red leather barber chair in a vintage style barbershop, the kind of chair clients settle into at Limelight Cuts" loading="eager" />
+        <div class="hero-tag">
+          <b>175 Main Street</b>
+          <small>City of Orange, New Jersey 07050</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SIGNATURE: FRESH FADE BEFORE / AFTER -->
+  <section class="sec" id="fade">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="kicker">The fresh fade</span>
+        <h2>Drag the line. See the difference.</h2>
+        <p>Pull the slider across to watch a grown out shape become a clean skin fade. This is the work, before and after, no filter.</p>
+      </div>
+      <div class="compare reveal" id="compare">
+        <img class="before" src="https://images.pexels.com/photos/7697644/pexels-photo-7697644.jpeg?auto=compress&cs=tinysrgb&w=1300" alt="A barber starting the cut, clippers to a grown out shape, City of Orange neighborhood barbershop" />
+        <div class="after-wrap" id="afterWrap">
+          <img src="https://images.pexels.com/photos/7697229/pexels-photo-7697229.jpeg?auto=compress&cs=tinysrgb&w=1300" alt="The finish, a clean shaped cut and lined edges fresh out of the chair" />
+        </div>
+        <span class="cmp-label b">Grown out</span>
+        <span class="cmp-label a">Fresh cut</span>
+        <div class="handle" id="handle">
+          <div class="grip" role="slider" tabindex="0" aria-label="Drag to compare before and after the fade" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M8 7l-5 5 5 5"/><path d="M16 7l5 5-5 5"/></svg>
+          </div>
+        </div>
+      </div>
+      <div class="compare-cap reveal">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></svg>Hand faded, blended clean to the skin</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Most cuts run 30 to 45 minutes</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAIRS / AVAILABILITY -->
+  <section class="sec" id="chairs">
+    <div class="wrap">
+      <div class="chairs-grid">
+        <div>
+          <div class="sec-head reveal" style="margin-bottom:30px">
+            <span class="kicker">Open a chair</span>
+            <h2>Best times to roll through.</h2>
+            <p>Walk ins are welcome. These are the windows when chairs usually open up. Call ahead and we will hold one for you.</p>
+          </div>
+          <div class="chips reveal" id="chips"></div>
+          <div class="chairs-note reveal">
+            <b>Hours not posted online yet</b>
+            <p>We keep neighborhood barbershop hours. For today's open and close, give the shop a quick call. The live pill in the corner updates against a typical day.</p>
+          </div>
+        </div>
+        <div class="barbers reveal">
+          <div class="barber">
+            <div class="av">L</div>
+            <div><b>Luis</b><small>Fades, tapers, kids' cuts</small></div>
+            <span class="free"><span class="s-dot"></span>Regulars' pick</span>
+          </div>
+          <div class="barber">
+            <div class="av alt">T</div>
+            <div><b>The bench</b><small>Lineups, beard sculpt, hot towel</small></div>
+            <span class="free"><span class="s-dot"></span>Walk in ready</span>
+          </div>
+          <div class="barber">
+            <div class="av">★</div>
+            <div><b>First time in?</b><small>Tell us the shape, we read the rest</small></div>
+            <span class="free"><span class="s-dot"></span>Always room</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="sec" id="services" style="background:var(--ink-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+    <div class="wrap">
+      <div class="sec-head reveal" style="margin:0 auto 48px;text-align:center">
+        <span class="kicker" style="justify-content:center">On the menu</span>
+        <h2>Straightforward cuts, honest prices.</h2>
+      </div>
+      <div class="menu">
+        <div class="svc reveal">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4L8.12 15.88"/><path d="M14.47 14.48L20 20"/><path d="M8.12 8.12L12 12"/></svg></span>
+          <div class="meta"><b>Signature fade</b><p>Skin, low, mid or high. Blended by hand and finished sharp.</p></div>
+          <span class="price">$30+</span>
+        </div>
+        <div class="svc reveal">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 18l8-12 8 12"/><path d="M7 14h10"/></svg></span>
+          <div class="meta"><b>Cut and beard</b><p>A full reset. Fresh cut paired with a shaped, lined beard.</p></div>
+          <span class="price">$40+</span>
+        </div>
+        <div class="svc reveal">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 12h18"/><path d="M3 7h18"/><path d="M3 17h18"/></svg></span>
+          <div class="meta"><b>The lineup</b><p>Edge up and shape only, keeping your length clean and crisp.</p></div>
+          <span class="price">$20+</span>
+        </div>
+        <div class="svc reveal">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 12c0 4 3 7 7 7s7-3 7-7"/><path d="M5 12V8a7 7 0 0 1 14 0v4"/><path d="M9 19l-1 2"/><path d="M15 19l1 2"/></svg></span>
+          <div class="meta"><b>Kids' cut</b><p>Patient hands for the young ones. In, sharp, and back out.</p></div>
+          <span class="price">$25+</span>
+        </div>
+        <div class="svc reveal">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 3v7a6 6 0 0 0 12 0V3"/><path d="M12 16v5"/><path d="M8 21h8"/></svg></span>
+          <div class="meta"><b>Hot towel shave</b><p>Straight razor, hot towel, the close finish you can feel.</p></div>
+          <span class="price">$30+</span>
+        </div>
+        <div class="svc reveal">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7.4-6.3-4.6L5.7 21.4 8 14 2 9.4h7.6z"/></svg></span>
+          <div class="meta"><b>Design and parts</b><p>Razor lines and detail work, drawn into the fade your way.</p></div>
+          <span class="price">Ask</span>
+        </div>
+      </div>
+      <p class="menu-note">Prices start here and shift with the work. Cash and card welcome. Confirm the exact total when you sit down.</p>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="sec" id="gallery">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="kicker">From the chair</span>
+        <h2>The shop, the craft, the finish.</h2>
+        <p>A look inside 175 Main Street. The bench, the tools, the work that keeps the block coming back.</p>
+      </div>
+      <div class="gal reveal">
+        <figure class="tall">
+          <img src="https://images.pexels.com/photos/19028067/pexels-photo-19028067.jpeg?auto=compress&cs=tinysrgb&w=900" alt="A fresh fade taking shape, sharp and clean from every angle" loading="lazy" />
+          <figcaption>A fade sharp from every angle</figcaption>
+        </figure>
+        <figure class="wide">
+          <img src="https://images.pexels.com/photos/7697203/pexels-photo-7697203.jpeg?auto=compress&cs=tinysrgb&w=1100" alt="A full shop on a good afternoon, capes on and the next man waiting" loading="lazy" />
+          <figcaption>A full bench on a good afternoon</figcaption>
+        </figure>
+        <figure>
+          <img src="https://images.pexels.com/photos/1319460/pexels-photo-1319460.jpeg?auto=compress&cs=tinysrgb&w=700" alt="A collection of vintage barber scissors hanging on a wooden wall" loading="lazy" />
+          <figcaption>Tools kept sharp and ready</figcaption>
+        </figure>
+        <figure>
+          <img src="https://images.pexels.com/photos/35157699/pexels-photo-35157699.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Clippers shaping a crisp neckline, the lineup finish on a fresh cut" loading="lazy" />
+          <figcaption>Crisp lines, blended to the skin</figcaption>
+        </figure>
+        <figure class="wide">
+          <img src="https://images.pexels.com/photos/7697390/pexels-photo-7697390.jpeg?auto=compress&cs=tinysrgb&w=1100" alt="A barber giving a clean fade in the chair, steady hands for every age" loading="lazy" />
+          <figcaption>The classic seat, the steady hand</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEW WORD -->
+  <section class="sec" id="word" style="background:var(--ink-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+    <div class="wrap reveal">
+      <span class="kicker" style="justify-content:center">What the block says</span>
+      <p class="quote">Luis has been cutting my hair and my son's for a while now. <em>Skilled, comfortable, and the price is fair.</em> We keep coming back.</p>
+      <p class="attr">— Paraphrased from a Google review of Limelight Cuts · 4.6 stars</p>
+    </div>
+  </section>
+
+  <!-- VISIT / MAP -->
+  <section class="sec" id="visit">
+    <div class="wrap">
+      <div class="visit-grid reveal">
+        <div class="visit-info">
+          <span class="kicker">Come through</span>
+          <h2 style="margin-top:16px">Find the chair on Main.</h2>
+          <div style="margin-top:24px">
+            <div class="v-row">
+              <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+              <div><b>Address</b><p>175 Main Street<br>City of Orange, NJ 07050</p></div>
+            </div>
+            <div class="v-row">
+              <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
+              <div><b>Phone</b><p><a href="tel:+19739050309">(973) 905-0309</a></p></div>
+            </div>
+            <div class="v-row">
+              <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span>
+              <div><b>Hours</b><p id="hoursLine">Call for today's hours. We keep regular barbershop hours and the live pill above tracks a typical day.</p></div>
+            </div>
+          </div>
+          <div class="visit-cta">
+            <a class="btn btn-gold" href="tel:+19739050309">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              (973) 905-0309
+            </a>
+            <a class="btn btn-ghost" href="https://www.google.com/maps?q=175+Main+St,+City+of+Orange,+NJ+07050" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+              Get directions
+            </a>
+          </div>
+          <span class="ig-line">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+            See the work on <a href="https://www.instagram.com/_limelightcuts/" target="_blank" rel="noopener">@_limelightcuts</a>
+          </span>
+        </div>
+        <div class="map-frame">
+          <iframe src="https://www.google.com/maps?q=175+Main+St,+City+of+Orange,+NJ+07050&z=16&output=embed" title="Map showing Limelight Cuts at 175 Main Street, City of Orange, New Jersey" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="wrap">
+      <div class="foot-top">
+        <div class="foot-brand">
+          <b>Limelight Cuts</b>
+          <p>A barbershop on Main Street in the City of Orange. Fresh fades, clean lineups and beard work, done by hand for the neighborhood.</p>
+          <div class="hero-rate" style="margin-top:18px">
+            <span class="stars" aria-label="Rated 4.6 out of 5">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+            </span>
+            <span>4.6 on Google</span>
+          </div>
+        </div>
+        <div class="foot-cols">
+          <div class="foot-col">
+            <b>Visit</b>
+            <p>175 Main Street<br>City of Orange, NJ 07050</p>
+            <a href="https://www.google.com/maps?q=175+Main+St,+City+of+Orange,+NJ+07050" target="_blank" rel="noopener">Get directions</a>
+          </div>
+          <div class="foot-col">
+            <b>Book</b>
+            <a href="tel:+19739050309">(973) 905-0309</a>
+            <p>Walk ins welcome<br>Call to hold a chair</p>
+            <a href="https://www.instagram.com/_limelightcuts/" target="_blank" rel="noopener">@_limelightcuts</a>
+          </div>
+          <div class="foot-col">
+            <b>Browse</b>
+            <a href="#fade">The fresh fade</a>
+            <a href="#services">Services</a>
+            <a href="#gallery">Our work</a>
+            <a href="#visit">Visit</a>
+          </div>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span>© <span id="yr"></span> Limelight Cuts · 175 Main Street, City of Orange, NJ · (973) 905-0309</span>
+        <span class="by">
+          <svg class="spark" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.6 6.4L20 10l-6.4 1.6L12 18l-1.6-6.4L4 10l6.4-1.6z"/></svg>
+          Built by <a href="https://bysemaj.com" target="_blank" rel="noopener">bysemaj.com</a>
+        </span>
+      </div>
+    </div>
+  </footer>
+</main>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  /* ---------- LIVE STATUS PILL (typical barbershop week, America/New_York) ---------- */
+  /* Hours are NOT published publicly for this shop. This pill computes against a
+     TYPICAL neighborhood barbershop schedule and the copy is honest about it
+     (the Visit + Chairs sections both say "call for today's hours"). 12-hour everywhere. */
+  var TYPICAL = {
+    0:[10,16],  /* Sun 10 AM - 4 PM */
+    1:[9,19],   /* Mon 9 AM - 7 PM */
+    2:[9,19],
+    3:[9,19],
+    4:[9,19],
+    5:[9,20],   /* Fri 9 AM - 8 PM */
+    6:[8,20]    /* Sat 8 AM - 8 PM */
+  };
+  function nyParts(){
+    var f = new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',weekday:'short',hour:'numeric',minute:'numeric',hour12:false});
+    var p = {}; f.formatToParts(new Date()).forEach(function(x){p[x.type]=x.value;});
+    var map={Sun:0,Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6};
+    var h = parseInt(p.hour,10); if(h===24)h=0;
+    return {day:map[p.weekday], hour:h, min:parseInt(p.minute,10)};
+  }
+  function fmt12(h){
+    var ap = h>=12 ? 'PM':'AM';
+    var hr = h%12; if(hr===0)hr=12;
+    return hr+' '+ap;
+  }
+  function applyStatus(){
+    var t = nyParts();
+    var span = TYPICAL[t.day];
+    var nowMin = t.hour*60 + t.min;
+    var open = nowMin >= span[0]*60 && nowMin < span[1]*60;
+    var label, sub;
+    if(open){
+      label = 'Open now';
+      sub = 'until ' + fmt12(span[1]);
+    } else {
+      label = 'Closed now';
+      var nd = t.day, guard=0, next=span;
+      if(nowMin >= span[1]*60){ nd=(t.day+1)%7; next=TYPICAL[nd]; }
+      sub = 'opens ' + fmt12(next[0]);
+    }
+    var full = label + ' · ' + sub;
+    ['statR','statH','statM'].forEach(function(id){
+      var el=document.getElementById(id); if(el) el.textContent = id==='statM' ? label : full;
+    });
+    ['dotR','dotH','dotM'].forEach(function(id){
+      var el=document.getElementById(id); if(el){ el.className='dot '+(open?'open':'closed'); }
+    });
+  }
+  applyStatus();
+  setInterval(applyStatus, 60000);
+
+  /* ---------- CHAIR-AVAILABILITY TIME CHIPS (today, from typical span) ---------- */
+  function buildChips(){
+    var t = nyParts();
+    var span = TYPICAL[t.day];
+    var openH = span[0], closeH = span[1];
+    var wrap = document.getElementById('chips');
+    var blocks = [];
+    /* three sensible windows inside today's open span */
+    var mid = Math.round((openH+closeH)/2);
+    blocks.push([openH, openH+2, 'Early chair']);
+    blocks.push([mid-1, mid+1, 'Midday']);
+    blocks.push([closeH-3, closeH-1, 'After work']);
+    var nowMin = t.hour*60 + t.min;
+    blocks.forEach(function(b){
+      var startMin=b[0]*60;
+      var passed = nowMin >= b[1]*60;
+      var live = nowMin>=b[0]*60 && nowMin<b[1]*60;
+      var el=document.createElement('div');
+      el.className='chip';
+      el.setAttribute('role','button');
+      el.setAttribute('tabindex','0');
+      var status = passed ? '<small class="full"><span class="s-dot"></span>Filled up</small>'
+                  : live ? '<small><span class="s-dot"></span>Chairs now</small>'
+                  : '<small><span class="s-dot"></span>Usually open</small>';
+      el.innerHTML = '<b>'+fmt12(b[0])+'</b><span style="font-size:11.5px;color:var(--muted)">'+b[2]+'</span>'+status;
+      el.addEventListener('click', function(){ window.location.href='tel:+19739050309'; });
+      el.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); window.location.href='tel:+19739050309'; }});
+      wrap.appendChild(el);
+    });
+  }
+  buildChips();
+
+  /* ---------- BEFORE / AFTER FADE SLIDER ---------- */
+  (function(){
+    var cmp = document.getElementById('compare');
+    var afterWrap = document.getElementById('afterWrap');
+    var handle = document.getElementById('handle');
+    var grip = handle.querySelector('.grip');
+    var dragging = false;
+    function setPct(p){
+      p = Math.max(2, Math.min(98, p));
+      afterWrap.style.width = p + '%';
+      handle.style.left = p + '%';
+      grip.setAttribute('aria-valuenow', Math.round(p));
+    }
+    function fromEvent(clientX){
+      var r = cmp.getBoundingClientRect();
+      setPct(((clientX - r.left)/r.width)*100);
+    }
+    cmp.addEventListener('mousedown', function(e){ dragging=true; fromEvent(e.clientX); });
+    window.addEventListener('mousemove', function(e){ if(dragging) fromEvent(e.clientX); });
+    window.addEventListener('mouseup', function(){ dragging=false; });
+    cmp.addEventListener('touchstart', function(e){ dragging=true; fromEvent(e.touches[0].clientX); }, {passive:true});
+    cmp.addEventListener('touchmove', function(e){ if(dragging) fromEvent(e.touches[0].clientX); }, {passive:true});
+    window.addEventListener('touchend', function(){ dragging=false; });
+    grip.addEventListener('keydown', function(e){
+      var cur = parseFloat(afterWrap.style.width) || 50;
+      if(e.key==='ArrowLeft'){ setPct(cur-4); e.preventDefault(); }
+      if(e.key==='ArrowRight'){ setPct(cur+4); e.preventDefault(); }
+    });
+    setPct(50);
+    /* one-time invite nudge when it scrolls into view */
+    var nudged=false;
+    var io = new IntersectionObserver(function(en){
+      en.forEach(function(x){
+        if(x.isIntersecting && !nudged){
+          nudged=true;
+          var p=50, dir=1, steps=0;
+          var iv=setInterval(function(){
+            p += dir*2.2; steps++;
+            if(p>=63){dir=-1} if(p<=42){dir=1}
+            setPct(p);
+            if(steps>26){clearInterval(iv); setPct(50);}
+          },22);
+        }
+      });
+    },{threshold:.5});
+    io.observe(cmp);
+  })();
+
+  /* ---------- SCROLL REVEAL ---------- */
+  var rio = new IntersectionObserver(function(en){
+    en.forEach(function(x){ if(x.isIntersecting){ x.target.classList.add('in'); rio.unobserve(x.target); }});
+  },{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(function(el){ rio.observe(el); });
+  /* safety net: force visible after 2.5s no matter what */
+  setTimeout(function(){ document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); }); }, 2500);
+
+  /* ---------- ACTIVE NAV ON SCROLL ---------- */
+  var links = Array.prototype.slice.call(document.querySelectorAll('#railNav a'));
+  var secs = links.map(function(a){ return document.querySelector(a.getAttribute('href')); });
+  var sio = new IntersectionObserver(function(en){
+    en.forEach(function(x){
+      if(x.isIntersecting){
+        var id = '#'+x.target.id;
+        links.forEach(function(a){ a.classList.toggle('active', a.getAttribute('href')===id); });
+      }
+    });
+  },{rootMargin:'-45% 0px -50% 0px'});
+  secs.forEach(function(s){ if(s) sio.observe(s); });
+</script>
+</body>
+</html>
