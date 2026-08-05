@@ -252,6 +252,58 @@
   .reveal.in{opacity:1;transform:none}
 
   /* ---------- RESPONSIVE ---------- */
+
+  /* ---------- CALL OR TEXT (phone doctrine) ----------
+     Plenty of people will never dial a barbershop but will happily send a photo
+     of the fade they want, and that photo is most of the conversation. So the
+     number is a chooser, not a dial-only link.
+     SKIN (unique to Limelight): the panel borrows the left rail's numbered nav,
+     01 / 02 in Cabinet Grotesk gold, on the same 12px radius as the buttons.
+     Root class is .cot, never .wrap, which is the page container. */
+  .cot{position:relative;display:inline-flex}
+  .cot > .btn,.cot > .call{cursor:pointer;font-family:var(--body)}
+  .cot-panel{
+    position:absolute;top:calc(100% + 10px);left:0;z-index:80;
+    min-width:262px;width:max-content;
+    background:var(--ink-3);border:1px solid var(--line);
+    border-radius:14px;padding:7px;
+    box-shadow:0 22px 48px rgba(0,0,0,.5);
+    opacity:0;transform:translateY(-7px);pointer-events:none;
+    transition:opacity .24s,transform .24s;
+  }
+  .cot-panel.right{left:auto;right:0}
+  .cot-panel.up{top:auto;bottom:calc(100% + 10px);transform:translateY(7px)}
+  .cot-panel[data-open="true"]{opacity:1;transform:translateY(0);pointer-events:auto}
+  .cot-panel a{
+    display:flex;align-items:center;gap:13px;
+    padding:12px 13px;border-radius:10px;transition:.22s;color:var(--cream);
+  }
+  .cot-panel a:hover{background:var(--ink-2)}
+  .cot-panel a .n{
+    font-family:var(--display);font-weight:800;font-size:11px;
+    color:var(--gold-deep);width:18px;flex:none;opacity:.9;
+  }
+  .cot-panel a:hover .n{color:var(--gold)}
+  .cot-panel a b{display:block;font-family:var(--body);font-weight:700;font-size:14px}
+  .cot-panel a small{display:block;font-size:12px;color:var(--muted);margin-top:2px}
+  .cot-panel a svg{width:15px;height:15px;color:var(--gold);flex:none;margin-left:auto}
+  .cot-rule{height:1px;margin:3px 13px;background:var(--line)}
+  .cot-cap{
+    display:block;padding:9px 13px 5px;font-size:10.5px;letter-spacing:.26em;
+    text-transform:uppercase;color:var(--muted);
+  }
+  .t-text{
+    width:46px;height:46px;border-radius:12px;border:1px solid var(--line);
+    display:none;place-items:center;flex:none;color:var(--gold);background:transparent;
+  }
+  .t-text svg{width:19px;height:19px}
+  @media(max-width:1080px){ .t-text{display:grid} }
+  @media(max-width:560px){
+    .cot{display:flex;flex:1}
+    .cot > .btn{width:100%;justify-content:center}
+    .cot-panel,.cot-panel.right{min-width:0;width:calc(100vw - 36px);max-width:300px}
+  }
+
   @media(max-width:1080px){
     :root{--rail:0px}
     .rail{display:none}
@@ -302,7 +354,10 @@
   </a>
   <div class="t-right">
     <div class="t-status"><span class="dot" id="dotM"></span><span id="statM">Hours</span></div>
-    <a class="t-call" href="tel:+19739050309" aria-label="Call Limelight Cuts at (973) 905-0309">
+    <a class="t-text" data-sms href="#" aria-label="Text Limelight Cuts a photo of the fade you want">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+    </a>
+    <a class="t-call" data-tel href="tel:+19739050309" aria-label="Call Limelight Cuts at (973) 905-0309">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
     </a>
   </div>
@@ -326,10 +381,18 @@
   </div>
   <div class="rail-foot">
     <div class="status"><span class="dot" id="dotR"></span><span id="statR">Checking hours</span></div>
-    <a class="call" href="tel:+19739050309">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-      (973) 905-0309
-    </a>
+    <div class="cot" style="display:block">
+      <button type="button" class="call cot-trigger" style="width:100%;border:0" aria-haspopup="menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        <span data-num>(973) 905-0309</span>
+      </button>
+      <div class="cot-panel up" data-open="false" role="menu">
+        <span class="cot-cap">175 Main St · Orange</span>
+        <a href="tel:+19739050309" data-tel role="menuitem"><span class="n">01</span><span><b>Call the shop</b><small>Straight to the chair</small></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <div class="cot-rule"></div>
+        <a href="#" data-sms role="menuitem"><span class="n">02</span><span><b>Text the shop</b><small>Send a pic of the fade</small></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </div>
   </div>
 </aside>
 
@@ -342,10 +405,18 @@
         <h1>Walk in plain.<br>Walk out <em>lit.</em><span class="underline"></span></h1>
         <p class="lead">A neighborhood barbershop on <b>175 Main Street</b> in the City of Orange. Skin fades, crisp lineups and beard work, done by hand and finished sharp. No app, no fuss. Just a good chair and a clipper that knows what it is doing.</p>
         <div class="cta-row">
-          <a class="btn btn-gold" href="tel:+19739050309">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-            Call the shop
-          </a>
+          <div class="cot">
+            <button type="button" class="btn btn-gold cot-trigger" aria-haspopup="menu" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              Call or text the shop
+            </button>
+      <div class="cot-panel" data-open="false" role="menu">
+        <span class="cot-cap">175 Main St · Orange</span>
+        <a href="tel:+19739050309" data-tel role="menuitem"><span class="n">01</span><span><b>Call the shop</b><small>Straight to the chair</small></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <div class="cot-rule"></div>
+        <a href="#" data-sms role="menuitem"><span class="n">02</span><span><b>Text the shop</b><small>Send a pic of the fade</small></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+          </div>
           <a class="btn btn-ghost" href="#visit">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
             Find the chair
@@ -536,7 +607,7 @@
             </div>
             <div class="v-row">
               <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
-              <div><b>Phone</b><p><a href="tel:+19739050309">(973) 905-0309</a></p></div>
+              <div><b>Phone</b><p><a href="tel:+19739050309" data-tel><span data-num>(973) 905-0309</span></a><br><a href="#" data-sms style="color:var(--gold)">or text a photo of the fade</a></p></div>
             </div>
             <div class="v-row">
               <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span>
@@ -544,10 +615,18 @@
             </div>
           </div>
           <div class="visit-cta">
-            <a class="btn btn-gold" href="tel:+19739050309">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-              (973) 905-0309
-            </a>
+            <div class="cot">
+              <button type="button" class="btn btn-gold cot-trigger" aria-haspopup="menu" aria-expanded="false">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                <span data-num>(973) 905-0309</span>
+              </button>
+      <div class="cot-panel" data-open="false" role="menu">
+        <span class="cot-cap">175 Main St · Orange</span>
+        <a href="tel:+19739050309" data-tel role="menuitem"><span class="n">01</span><span><b>Call the shop</b><small>Straight to the chair</small></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <div class="cot-rule"></div>
+        <a href="#" data-sms role="menuitem"><span class="n">02</span><span><b>Text the shop</b><small>Send a pic of the fade</small></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+            </div>
             <a class="btn btn-ghost" href="https://www.google.com/maps?q=175+Main+St,+City+of+Orange,+NJ+07050" target="_blank" rel="noopener">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
               Get directions
@@ -591,8 +670,9 @@
           </div>
           <div class="foot-col">
             <b>Book</b>
-            <a href="tel:+19739050309">(973) 905-0309</a>
-            <p>Walk ins welcome<br>Call to hold a chair</p>
+            <a href="tel:+19739050309" data-tel><span data-num>(973) 905-0309</span></a>
+            <a href="#" data-sms>Text a photo of the fade</a>
+            <p>Walk ins welcome<br>Call or text to hold a chair</p>
             <a href="https://www.instagram.com/_limelightcuts/" target="_blank" rel="noopener">@_limelightcuts</a>
           </div>
           <div class="foot-col">
@@ -605,7 +685,7 @@
         </div>
       </div>
       <div class="foot-bottom">
-        <span>© <span id="yr"></span> Limelight Cuts · 175 Main Street, City of Orange, NJ · (973) 905-0309</span>
+        <span>© <span id="yr"></span> Limelight Cuts · 175 Main Street, City of Orange, NJ · <span data-num>(973) 905-0309</span></span>
         <span class="by">
           <svg class="spark" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.6 6.4L20 10l-6.4 1.6L12 18l-1.6-6.4L4 10l6.4-1.6z"/></svg>
           built <a href="https://bysemaj.com" target="_blank" rel="noopener">bysemaj.com</a>
@@ -615,6 +695,60 @@
   </footer>
 </main>
 
+<script>
+/* ---------- PHONE DOCTRINE ----------
+   The shop's number lives here once, as digits. Every visible number is written
+   as (973) 905-0309 and every tel:/sms: href is rebuilt from E.164 digits, because
+   a tel: href carrying spaces or parentheses is a coin flip on older Android
+   dialers. Format for eyes, E.164 for links, one constant behind both.
+   The markup carries correct literal hrefs too, so the page still dials with
+   JavaScript switched off. */
+(function(){
+  var PHONE_DIGITS = '9739050309';
+  /* Limelight's own voice: the shop is walk-in first and publishes no hours, so
+     the text asks the two things the barber can actually answer. */
+  var SMS_BODY = "Pic of the fade I'm after is attached. Can you match it, and what time is good today?";
+
+  function national(v){ var d=String(v).replace(/\D+/g,''); if(d.length===11&&d.charAt(0)==='1') d=d.slice(1); return d.slice(0,10); }
+  function pretty(v){ var d=national(v); return d.length===10 ? '('+d.slice(0,3)+') '+d.slice(3,6)+'-'+d.slice(6) : String(v); }
+  function e164(v){ return '+1'+national(v); }
+  /* `?&body=` is the belt-and-braces separator: iOS wanted &body=, Android ?body=. */
+  function smsHref(v,b){ var base='sms:'+e164(v); return b ? base+'?&body='+encodeURIComponent(b) : base; }
+
+  window.LIMELIGHT_PHONE = { digits:PHONE_DIGITS, pretty:pretty(PHONE_DIGITS), tel:'tel:'+e164(PHONE_DIGITS), sms:smsHref(PHONE_DIGITS,SMS_BODY) };
+
+  function each(sel,fn){ Array.prototype.forEach.call(document.querySelectorAll(sel), fn); }
+  each('[data-tel]', function(el){ el.setAttribute('href', window.LIMELIGHT_PHONE.tel); });
+  each('[data-sms]', function(el){ el.setAttribute('href', window.LIMELIGHT_PHONE.sms); });
+  each('[data-num]', function(el){ el.textContent = window.LIMELIGHT_PHONE.pretty; });
+
+  /* Call-or-text chooser */
+  each('.cot', function(root){
+    var trigger = root.querySelector('.cot-trigger');
+    var panel = root.querySelector('.cot-panel');
+    if(!trigger || !panel) return;
+    function close(){ panel.setAttribute('data-open','false'); trigger.setAttribute('aria-expanded','false'); }
+    /* Clamp into the viewport before showing. A left- or right-anchored panel
+       hanging off a narrow screen was the failure mode this guards against. */
+    function place(){
+      panel.style.left = ''; panel.style.right = '';
+      var pr = panel.getBoundingClientRect(), gut = 14;
+      var shift = 0;
+      if(pr.right > window.innerWidth - gut) shift = (window.innerWidth - gut) - pr.right;
+      if(pr.left + shift < gut) shift = gut - pr.left;
+      if(shift){ panel.style.right = 'auto'; panel.style.left = (panel.offsetLeft + shift) + 'px'; }
+    }
+    function open(){ panel.setAttribute('data-open','true'); trigger.setAttribute('aria-expanded','true'); place(); }
+    trigger.addEventListener('click', function(e){
+      e.preventDefault();
+      panel.getAttribute('data-open')==='true' ? close() : open();
+    });
+    panel.addEventListener('click', function(e){ if(e.target.closest('a')) close(); });
+    document.addEventListener('click', function(e){ if(!root.contains(e.target)) close(); });
+    document.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });
+  });
+})();
+</script>
 <script>
   document.getElementById('yr').textContent = new Date().getFullYear();
 
@@ -694,8 +828,8 @@
                   : live ? '<small><span class="s-dot"></span>Chairs now</small>'
                   : '<small><span class="s-dot"></span>Usually open</small>';
       el.innerHTML = '<b>'+fmt12(b[0])+'</b><span style="font-size:11.5px;color:var(--muted)">'+b[2]+'</span>'+status;
-      el.addEventListener('click', function(){ window.location.href='tel:+19739050309'; });
-      el.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); window.location.href='tel:+19739050309'; }});
+      el.addEventListener('click', function(){ window.location.href=window.LIMELIGHT_PHONE.tel; });
+      el.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); window.location.href=window.LIMELIGHT_PHONE.tel; }});
       wrap.appendChild(el);
     });
   }
